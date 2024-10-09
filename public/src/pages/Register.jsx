@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components"; //它允许你使用 JavaScript 来编写css
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/logo.svg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,18 +8,27 @@ import axios from "axios";
 import { registerRoute } from "../utils/APIRoutes";
 
 function Register() {
+  const navigate = useNavigate(); //hook函数，用于导航
+  //处理提交
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (handleValidation()) {
-      
-      const { password, confirmPassword, username, email } = values;
-      console.log("ok");
+      const { password, username, email } = values;
+      //console.log("ok");
+      //它这里并没有为前端发送请求独立出一个方法，我觉得不好。
       const { data } = await axios.post(registerRoute, {
         username,
         email,
         password,
       });
+      if (data.status === false) {
+        toast.error(data.msg, toastOptions);
+      } else {
+        //注册成功把用户信息放在localStorage
+        localStorage.setItem("chat-app-user", JSON.stringify(data.user));
+        navigate("/");
+      }
     }
   };
 
@@ -72,6 +81,7 @@ function Register() {
     }
     return true;
   }
+
   return (
     <>
       <FormContainer>
