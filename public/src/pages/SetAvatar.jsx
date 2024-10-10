@@ -5,7 +5,7 @@ import Logo from "../assets/logo.svg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import { loginRoute } from "../utils/APIRoutes";
+import { loginRoute, setAvatarRoute } from "../utils/APIRoutes";
 import loader from "../assets/loader.gif";
 import { Buffer } from "buffer";
 
@@ -24,11 +24,30 @@ function SetAvatar() {
     draggable: true,
     theme: "dark",
   };
-  const setProfilePicture = async () => {};
+  const setProfilePicture = async () => {
+    if (selectedAvatar === undefined) {
+      toast.error("Please select an avatar", toastOptions);
+    } else {
+      //它这个流程有点奇怪。目前只有新注册的用户，才会把data放在localstorage
+      const user = await JSON.parse(localStorage.getItem("chat-app-user"));
+      const { data } = await axios.post(`${setAvatarRoute}/${user._id}`, {
+        image: avatars[selectedAvatar],
+      });
+      if (data.isSet) {
+        user.isAvatarImageSet = true;
+        user.avatarImage = data.image;
+        localStorage.setItem("chat-app-user", JSON.stringify(user));
+        navigate("/");
+      }
+    }
+  };
   //在渲染时，获取图片
   useEffect(() => {
     const fetchAvatars = async () => {
       try {
+        if (!localStorage.getItem("chat-app-user")) {
+          navigate("/login");
+        }
         const data = [];
         for (let i = 0; i < 4; i++) {
           const image = await axios.get(
@@ -50,31 +69,40 @@ function SetAvatar() {
   return (
     // React 的组件必须返回一个单一的根元素。所以需要空白的
     <>
-      <Container>
-        <div className="title-container">
-          <h1>Pick an avatar as your profile picture</h1>
-        </div>
-        {/* 大括号用于插入js表达式 */}
-        <div className="avatars">
-          {avatars.map((avatar, index) => {
-            return (
-              <div
-                key={index}
-                className={`avatar ${
-                  selectedAvatar === index ? "selected" : ""
-                }`}
-              >
-                <img
-                  src={`data:image/svg+xml;base64,${avatar}`}
-                  alt="avatar"
-                  onClick={() => setSelectedAvatar(index)}
-                ></img>
-                {/* avatar前面的都是固定的数据格式 */}
-              </div>
-            );
-          })}
-        </div>
-      </Container>
+      {isLoading ? (
+        <Container>
+          <img src={loader} alt="loader" className="loader"></img>
+        </Container>
+      ) : (
+        <Container>
+          <div className="title-container">
+            <h1>Pick an avatar as your profile picture</h1>
+          </div>
+          {/* 大括号用于插入js表达式 */}
+          <div className="avatars">
+            {avatars.map((avatar, index) => {
+              return (
+                <div
+                  key={index}
+                  className={`avatar ${
+                    selectedAvatar === index ? "selected" : ""
+                  }`}
+                >
+                  <img
+                    src={`data:image/svg+xml;base64,${avatar}`}
+                    alt="avatar"
+                    onClick={() => setSelectedAvatar(index)}
+                  ></img>
+                  {/* avatar前面的都是固定的数据格式 */}
+                </div>
+              );
+            })}
+          </div>
+          <button className="submit-btn" onClick={setProfilePicture}>
+            Set as Profile Picture
+          </button>
+        </Container>
+      )}
       <ToastContainer />
     </>
   );
@@ -120,6 +148,20 @@ const Container = styled.div`
     }
   }
   .submit-btn {
+    background-color: #4e0eff;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    &:hover {
+      background-color: #4e0eff;
+    }
+  }
+  submit-btn {
     background-color: #4e0eff;
     color: white;
     padding: 1rem 2rem;

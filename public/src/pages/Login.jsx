@@ -24,7 +24,7 @@ function Login() {
       if (data.status === false) {
         toast.error(data.msg, toastOptions);
       } else {
-        //注册成功把用户信息放在localStorage
+        //登录成功把用户信息放在localStorage
         localStorage.setItem("chat-app-user", JSON.stringify(data.user));
         navigate("/");
       }
