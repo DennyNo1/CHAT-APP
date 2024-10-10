@@ -8,6 +8,7 @@ function Chat() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(undefined);
   const [contacts, setContacts] = useState([]);
+  const [currentChat,setCurrentChat]=useState(undefined)//我不认为把currentChat放在父组件是个好设计。我会把currentchat和currentuser都放在一起。
   //一般，useEffect都配置空数组，当mounted用
   useEffect(() => {
     if (!localStorage.getItem("chat-app-user")) {
@@ -37,10 +38,15 @@ function Chat() {
 
     fetchContacts(); // 调用异步函数
   }, [currentUser]); // 当 currentUser 改变时，重新执行此效果
+
+  const handleChatChange=(chat)=>{
+    setCurrentChat(chat)
+  }
   return (
     <Container>
       <div className="container">
-        <Contacts contacts={contacts} currentUser={currentUser}></Contacts>
+        <Contacts contacts={contacts} currentUser={currentUser} changeChat={handleChatChange}> </Contacts>
+        <div>sssssssssssssssssssssss</div>
         {/* 子父组件传递 */}
       </div>
     </Container>

@@ -69,6 +69,8 @@ const setAvatar = async (req, res, next) => {
 
 const getAllUsers = async (req, res, next) => {
   try {
+    console.log(req)
+    console.log(req.params.id)
     const users = await User.find({
       _id: { $ne: req.params.id },
     }).select(["email", "username", "avatarImage", "_id"]);
@@ -84,4 +86,5 @@ module.exports = {
   register: register,
   login: login,
   setAvatar: setAvatar,
+  getAllUsers:getAllUsers
 };
