@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Logo from "../assets/logo.svg";
 import styled from "styled-components";
+  //左侧联系人列表
 export default function Contacts({ contacts, currentUser ,changeChat}) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
+
   //现在登录的用户
   const [currentSelected, setCurrentSelected] = useState(); //当前被选中的聊天对象
   useEffect(() => {

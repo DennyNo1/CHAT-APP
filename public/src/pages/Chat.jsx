@@ -13,6 +13,7 @@ function Chat() {
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined); //我不认为把currentChat放在父组件是个好设计。我会把currentchat和currentuser都放在一起。
   //这里的currentChat本质上是contact，contact是来自子组件Contacts，也就是子传父传值。然后它又被用于ChatContainer，又是父传子。
+
   //为了让渲染后在进行某些操作
   const [isLoading, setIsLoading] = useState(true);
   //一般，useEffect都配置空数组，当mounted用
@@ -51,22 +52,26 @@ function Chat() {
   };
   return (
     <Container>
-      <div className="container">
-        <Contacts
-          contacts={contacts}
-          currentUser={currentUser}
-          changeChat={handleChatChange}
-        >
-          {" "}
-        </Contacts>
-        {!isLoading && currentChat === undefined ? (
-          <Welcome currentUser={currentUser}></Welcome>
-        ) : (
-          <ChatContainer currentChat={currentChat}></ChatContainer>
-        )}
-
-        {/* 子父组件传递 */}
-      </div>
+    <div className="container">
+      {isLoading ? (
+        // 渲染加载中的提示
+        <div>Loading...</div>
+      ) : (
+        <>
+          {/* 加载完成后，渲染下面的内容 */}
+          <Contacts
+            contacts={contacts}
+            currentUser={currentUser}
+            changeChat={handleChatChange}
+          />
+          {currentChat === undefined ? (
+            <Welcome currentUser={currentUser} />
+          ) : (
+            <ChatContainer currentChat={currentChat} />
+          )}
+        </>
+      )}
+    </div>
     </Container>
   );
 }
