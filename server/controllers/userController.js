@@ -1,5 +1,5 @@
 const User = require("../model/userModel");
-const brcypt = require("bcrypt");
+const brcypt = require("bcryptjs");
 
 // 处理注册逻辑
 const register = async (req, res, next) => {

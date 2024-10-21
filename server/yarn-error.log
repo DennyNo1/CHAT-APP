@@ -1,0 +1,56 @@
+Arguments: 
+  E:\nodejs\node.exe E:\nodejs\node_global\node_modules\yarn\bin\yarn.js add socket-io-client
+
+PATH: 
+  C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;F:\VMware\bin\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;F:\Git\cmd;E:\JDK17\bin;E:\apache-maven-3.6.0\bin;E:\Redis\;E:\nodejs\node_global;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\MySQL\MySQL Server 8.0\bin;E:\apache-maven-3.6.0\bin;C:\Program Files\dotnet\;E:\gradle-7.5.1\bin;E:\nodejs\;E:\微信web开发者工具\dll;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;E:\Xshell\;E:\mongodb-win32-x86_64-windows-7.0.12\bin;F:\XTF\;C:\Users\hp\AppData\Local\pnpm;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\hp\AppData\Local\Microsoft\WindowsApps;F:\Tecent\QQGameTempest\Hall.57938\;C:\Users\hp\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\hp\AppData\Local\GitHubDesktop\bin;F:\PyCharm 2023.3.2\bin;;C:\Users\hp\AppData\Roaming\npm
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  20.11.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://mirrors.cloud.tencent.com/npm/socket-io-client: no such package available
+      at params.callback [as _callback] (E:\nodejs\node_global\node_modules\yarn\lib\cli.js:66145:18)
+      at self.callback (E:\nodejs\node_global\node_modules\yarn\lib\cli.js:140890:22)
+      at Request.emit (node:events:518:28)
+      at Request.<anonymous> (E:\nodejs\node_global\node_modules\yarn\lib\cli.js:141862:10)
+      at Request.emit (node:events:518:28)
+      at IncomingMessage.<anonymous> (E:\nodejs\node_global\node_modules\yarn\lib\cli.js:141784:12)
+      at Object.onceWrapper (node:events:632:28)
+      at IncomingMessage.emit (node:events:530:35)
+      at endReadableNT (node:internal/streams/readable:1696:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+npm manifest: 
+  {
+    "name": "server",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "nodemon index.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+      "bcrypt": "^5.1.1",
+      "cors": "^2.8.5",
+      "dotenv": "^16.4.5",
+      "express": "^4.21.0",
+      "mongoose": "^8.7.0",
+      "nodemon": "^3.1.7",
+      "socket.io": "^4.8.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

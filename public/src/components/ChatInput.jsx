@@ -3,7 +3,7 @@ import { BsEmojiSmileFill } from "react-icons/bs";
 import { IoMdSend } from "react-icons/io";
 import styled from "styled-components";
 import Picker from "emoji-picker-react";
-
+// 聊天输入框
 export default function ChatInput({ handleSendMsg }) {
   const [msg, setMsg] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -13,7 +13,7 @@ export default function ChatInput({ handleSendMsg }) {
 
   //   把原有的消息和emoji拼接起来
   const handleEmojiClick = (emojiObject) => {
-    console.log(emojiObject)
+    console.log(emojiObject);
     let message = msg;
     message += emojiObject.emoji;
     setMsg(message);
@@ -22,7 +22,7 @@ export default function ChatInput({ handleSendMsg }) {
   const sendChat = (event) => {
     event.preventDefault();
     if (msg.length > 0) {
-        //用父组件的函数来发送消息并清空
+      //用父组件的函数来发送消息并清空
       handleSendMsg(msg);
       setMsg("");
     }
@@ -57,7 +57,9 @@ const Container = styled.div`
   align-items: center;
   grid-template-columns: 5% 95%;
   background-color: #080420;
-  padding: 0 2rem;
+  padding: 0rem 2rem;
+  justify-content: flex-end;
+
   @media screen and (min-width: 720px) and (max-width: 1080px) {
     padding: 0 1rem;
     gap: 1rem;
